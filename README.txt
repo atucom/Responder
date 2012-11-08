@@ -6,9 +6,9 @@ INTRODUCTION
 ============
 
 This tool is first an LLMNR and NBT-NS responder, it will answer to 
-*specific* NBT-NS (NetBIOS Name Service) queries based on their name 
-suffix (see: http://support.microsoft.com/kb/163409). By default, the
-tool will only answers to File Server Service request, which is for SMB.
+*specific* NBT-NS (NetBIOS Name Service) queries based on their suffix name
+(see: http://support.microsoft.com/kb/163409). By default, the tool will 
+only answer to File Server Service requests, which is for SMB.
 The concept behind this, is to target our answers, and be stealthier on
 the network. This also helps to ensure that we don't break legitimate
 NBT-NS behavior.
@@ -25,37 +25,37 @@ FEATURES
 
 - Built-in MSSQL Auth server.
   In order to redirect SQL Authentication to this tool, you will need to
-  set the option -r to 1(NBT-NS queries for SQL Server lookup are
+  set the option -r to 1 (NBT-NS queries for SQL Server lookups are
   using the Workstation Service name suffix) for systems older than
-  windows Vista (LLMNR will be used for Vista and higher). This server
+  Windows Vista (LLMNR will be used for Vista and higher). This server
   supports NTLMv1, LMv2 hashes. This functionality was successfully tested
   on Windows SQL Server 2005 & 2008.
 
 - Built-in HTTP Auth server.
   In order to redirect HTTP Authentication to this tool, you will need
-  to set the option -r to 1 for Windows version older than Vista (NBT-NS
-  queries for HTTP server lookup are sent using the Workstation Service
+  to set the option -r to 1 for Windows versions older than Vista (NBT-NS
+  queries for HTTP server lookups are sent using the Workstation Service
   name suffix). For Vista and higher, LLMNR will be used. This server 
   supports NTLMv1, NTLMv2 hashes *and* Basic Authentication. This server
   was successfully tested on IE 6 to IE 10, Firefox, Chrome, Safari.
 
-- All hashes are printed to stdout and dumped in an unique file John
+- All hashes are printed to stdout and dumped to an unique file that is John
   Jumbo compliant, using this format:
   (SMB or MSSQL or HTTP)-(ntlm-v1 or v2 or clear-text)-Client_IP.txt
-  The file will be located in the current folder.
+  The file will be located in current directory.
 
 CONSIDERATIONS
 ==============
 
-- This tool listen on several port: UDP 137, TCP 1433,
-  TCP 80, TCP 139, TCP 445, Multicast UDP 5553.
+- This tool listens on several ports: UDP 137, TCP 1433,
+  TCP 80, TCP 139, TCP 445, and Multicast UDP 5553.
   If you run Samba on your system, stop smbd and nmbd and all other 
-  services listening on these ports.
+  services listening on those ports.
 
 - This tool will *not* work on Windows by default.
 
 - Please note that if you don't use rainbow tables to crack the hashes,
-  it is *better* change these 2 vars accordingly in Responder.py:
+  it is *better* to change these 2 vars accordingly in Responder.py:
 
   line 47: " # Change this if needed. Currently using the same
              challenge as Metasploit since several rainbow tables were
@@ -63,7 +63,7 @@ CONSIDERATIONS
              Challenge = "\x11\x22\x33\x44\x55\x66\x77\x88"
              NumChal = "1122334455667788" "
  
-  Apparently, Windows under certain circumstances does not send valids SMB
+  Apparently, Windows under certain circumstances does not send valid SMB
   NTLMv1 credentials when the fixed challenge 1122334455667788 is set.
 
 
@@ -82,7 +82,7 @@ If you're not joined to a domain, use:
 
 python Responder.py -d WORKGROUP -i 10.20.30.40
 
-For more information and read this post: 
+For more information, read this post: 
 http://blog.spiderlabs.com/2012/10/introducing-responder-10.html
 
 COPYRIGHT
